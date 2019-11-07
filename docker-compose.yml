@@ -1,0 +1,23 @@
+version: '3'
+services:
+  api:
+    build:
+      context: ./target/docker/stage
+    restart: always
+    container_name: book_app_postgres
+    working_dir: /app
+    volumes:
+      - ".:/app"
+    depends_on:
+      - db
+    ports:
+      - 7777:7777
+  db:
+    container_name: example_db_postgress
+    image: postgres:11
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: testpass
+      POSTGRES_DB: example
+    ports:
+      - 5432:5432
