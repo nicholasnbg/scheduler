@@ -1,9 +1,9 @@
-package com.example.example.http
+package com.nbgdev.scheduler.http
 
 import cats.effect.IO
-import com.example.example.model.Book
-import com.example.example.model.BookModel._
-import com.example.example.repository.BookRepo
+import com.nbgdev.scheduler.model.Book
+import com.nbgdev.scheduler.model.BookModel._
+import com.nbgdev.scheduler.repository.BookRepo
 import io.circe.Json
 import org.http4s.HttpRoutes
 import org.http4s.circe.CirceEntityCodec._

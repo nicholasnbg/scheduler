@@ -1,4 +1,5 @@
-package com.example.example.repository
+package com.nbgdev.scheduler.repository
+
 import cats.effect.IO
 import doobie._
 import doobie.util.transactor.Transactor.Aux

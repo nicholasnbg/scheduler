@@ -1,8 +1,8 @@
-package com.example.example.repository
+package com.nbgdev.scheduler.repository
 
 import cats.effect.IO
-import com.example.example.model.BookModel.BookId
-import com.example.example.model.{Book, BookWithId}
+import com.nbgdev.scheduler.model.{Book, BookWithId}
+import com.nbgdev.scheduler.model.BookModel.BookId
 import doobie.implicits._
 import doobie.util.transactor.Transactor.Aux
 

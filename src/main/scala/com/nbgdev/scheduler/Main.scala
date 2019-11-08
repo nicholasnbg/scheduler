@@ -1,10 +1,10 @@
-package com.example.example
+package com.nbgdev.scheduler
 
 import cats.effect.{ExitCode, IO, IOApp}
 import cats.implicits._
-import com.example.example.http.BookRoutes
-import com.example.example.repository.BookRepo.DoobieImpl
-import com.example.example.repository.{BookRepo, Doobie}
+import com.nbgdev.scheduler.repository.BookRepo.DoobieImpl
+import com.nbgdev.scheduler.http.BookRoutes
+import com.nbgdev.scheduler.repository.{BookRepo, Doobie}
 import org.flywaydb.core.Flyway
 import org.http4s.implicits._
 import org.http4s.server.Router

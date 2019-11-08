@@ -1,6 +1,6 @@
-package com.example.example.model
+package com.nbgdev.scheduler.model
 
-import com.example.example.model.BookModel.{Author, Id, Title}
+import BookModel.{Author, Id, Title}
 import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 

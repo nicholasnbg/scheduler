@@ -11,9 +11,9 @@ version in Docker := "0.1.1"
 
 lazy val root = (project in file("."))
   .settings(
-    organization := "com.example",
-    name := "example",
-    version := "0.0.1-SNAPSHOT",
+    organization := "com.nbgdev",
+    name := "scheduler",
+    version := "0.0.1",
     scalaVersion := "2.12.8",
     libraryDependencies ++= Seq(
       "org.tpolecat"    %% "doobie-core"         % "0.8.4",
