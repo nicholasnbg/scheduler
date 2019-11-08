@@ -11,7 +11,7 @@ object Doobie {
   implicit val cs = IO.contextShift(ExecutionContext.global)
 
   val xa: Aux[IO, Unit] = Transactor.fromDriverManager[IO](
-    "org.postgresql.Driver", "jdbc:postgresql:example", "postgres", "testpass"
+    "org.postgresql.Driver", "jdbc:postgresql:scheduler", "postgres", "testpass"
   )
 
 }

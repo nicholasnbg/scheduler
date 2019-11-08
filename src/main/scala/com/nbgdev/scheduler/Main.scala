@@ -20,7 +20,7 @@ object Main extends IOApp {
 
   override def run(args: List[String]): IO[ExitCode] = {
 
-    val flyway = Flyway.configure().dataSource("jdbc:postgresql:example", "postgres", "testpass").load()
+    val flyway = Flyway.configure().dataSource("jdbc:postgresql:scheduler", "postgres", "testpass").load()
     flyway.migrate()
 
     BlazeServerBuilder[IO]
