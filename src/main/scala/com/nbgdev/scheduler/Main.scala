@@ -2,9 +2,10 @@ package com.nbgdev.scheduler
 
 import cats.effect.{ExitCode, IO, IOApp}
 import cats.implicits._
+import com.nbgdev.scheduler.http.VehicleRoutes
 import com.nbgdev.scheduler.repository.BookRepo.DoobieImpl
-import com.nbgdev.scheduler.http.BookRoutes
-import com.nbgdev.scheduler.repository.{BookRepo, Doobie}
+import com.nbgdev.scheduler.repository.VehicleRepo.VehicleRepoImpl
+import com.nbgdev.scheduler.repository.{BookRepo, Doobie, VehicleRepo}
 import org.flywaydb.core.Flyway
 import org.http4s.implicits._
 import org.http4s.server.Router
@@ -13,9 +14,11 @@ import org.http4s.server.blaze.BlazeServerBuilder
 object Main extends IOApp {
 
   private val bookRepo: BookRepo = new DoobieImpl(Doobie.xa)
+  private val vehicleRepo: VehicleRepo = new VehicleRepoImpl(Doobie.xa)
 
   val httpRoutes = Router[IO](
-    "/" -> BookRoutes.routes(bookRepo)
+//    "/" -> BookRoutes.routes(bookRepo),
+    "/" -> VehicleRoutes.routes(vehicleRepo)
   ).orNotFound
 
   override def run(args: List[String]): IO[ExitCode] = {

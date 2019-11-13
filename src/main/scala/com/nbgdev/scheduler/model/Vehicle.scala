@@ -1,8 +1,14 @@
 package com.nbgdev.scheduler.model
 
-import org.joda.time.LocalTime
+import io.circe.{Decoder, Encoder}
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
 
-class Vehicle(val startTime: LocalTime, val endTime: LocalTime) {
 
+case class Vehicle(rego: String, capacity: Int)
+
+object Vehicle {
+
+  implicit val encoder: Encoder[Vehicle] = deriveEncoder[Vehicle]
+  implicit val decoder: Decoder[Vehicle] = deriveDecoder[Vehicle]
 }
