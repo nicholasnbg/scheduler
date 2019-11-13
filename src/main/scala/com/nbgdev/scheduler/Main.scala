@@ -2,10 +2,11 @@ package com.nbgdev.scheduler
 
 import cats.effect.{ExitCode, IO, IOApp}
 import cats.implicits._
-import com.nbgdev.scheduler.http.VehicleRoutes
+import com.nbgdev.scheduler.http.{CustomerRoutes, VehicleRoutes}
 import com.nbgdev.scheduler.repository.BookRepo.DoobieImpl
+import com.nbgdev.scheduler.repository.CustomerRepo.CustomerRepoImpl
 import com.nbgdev.scheduler.repository.VehicleRepo.VehicleRepoImpl
-import com.nbgdev.scheduler.repository.{BookRepo, Doobie, VehicleRepo}
+import com.nbgdev.scheduler.repository.{BookRepo, CustomerRepo, Doobie, VehicleRepo}
 import org.flywaydb.core.Flyway
 import org.http4s.implicits._
 import org.http4s.server.Router
@@ -15,10 +16,12 @@ object Main extends IOApp {
 
   private val bookRepo: BookRepo = new DoobieImpl(Doobie.xa)
   private val vehicleRepo: VehicleRepo = new VehicleRepoImpl(Doobie.xa)
+  private val customerRepo: CustomerRepo = new CustomerRepoImpl(Doobie.xa)
 
   val httpRoutes = Router[IO](
 //    "/" -> BookRoutes.routes(bookRepo),
-    "/" -> VehicleRoutes.routes(vehicleRepo)
+    "/" -> VehicleRoutes.routes(vehicleRepo),
+    "/" -> CustomerRoutes.routes(customerRepo)
   ).orNotFound
 
   override def run(args: List[String]): IO[ExitCode] = {
