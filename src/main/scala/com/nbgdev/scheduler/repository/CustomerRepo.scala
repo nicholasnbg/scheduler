@@ -1,5 +1,7 @@
 package com.nbgdev.scheduler.repository
 
+import java.util.UUID
+
 import cats.effect.IO
 import com.nbgdev.scheduler.Util.ErrorOr.ErrorOr
 import com.nbgdev.scheduler.model.Customer
@@ -26,13 +28,15 @@ object CustomerRepo {
     }
 
     override def getCustomer(id: String): IO[Option[Customer]] = {
-      sql"select id, customer_name from customers where id = ${id}".query[Customer]
+      val uuid = UUID.fromString(id)
+      sql"select id, customer_name from customers where id = ${uuid}".query[Customer]
         .option
         .transact(xa)
     }
 
     override def deleteCustomer(id: String): IO[ErrorOr[Unit]] = {
-      sql"delete from customers where id = ${id}"
+      val uuid = UUID.fromString(id)
+      sql"delete from customers where id = ${uuid}"
         .update
         .run
         .map {
