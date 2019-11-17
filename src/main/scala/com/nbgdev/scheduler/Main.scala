@@ -6,8 +6,9 @@ import com.nbgdev.scheduler.http.{CustomerRoutes, VehicleRoutes, ZoneRoutes}
 import com.nbgdev.scheduler.repository.BookRepo.DoobieImpl
 import com.nbgdev.scheduler.repository.CustomerRepo.CustomerRepoImpl
 import com.nbgdev.scheduler.repository.VehicleRepo.VehicleRepoImpl
-import com.nbgdev.scheduler.repository.ZoneRepo.ZoneRepoImp
-import com.nbgdev.scheduler.repository.{BookRepo, CustomerRepo, Doobie, VehicleRepo, ZoneRepo}
+import com.nbgdev.scheduler.repository.Zones.ZoneRepo.ZoneRepoImp
+import com.nbgdev.scheduler.repository.Zones.ZoneRepo
+import com.nbgdev.scheduler.repository.{BookRepo, CustomerRepo, Doobie, VehicleRepo}
 import org.flywaydb.core.Flyway
 import org.http4s.implicits._
 import org.http4s.server.Router

@@ -45,5 +45,10 @@ object VehicleRepo {
         .to[Vector]
         .transact(xa)
     }
+
+    def testQuery: doobie.ConnectionIO[Vector[String]] = {
+      sql"select rego from vehicles".query[String]
+        .to[Vector]
+    }
   }
 }

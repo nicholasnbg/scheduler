@@ -1,4 +1,4 @@
-package com.nbgdev.scheduler.repository
+package com.nbgdev.scheduler.repository.Zones
 
 import java.util.UUID
 
@@ -12,7 +12,7 @@ import doobie.util.transactor.Transactor.Aux
 
 
 trait ZoneRepo {
-  def addZone(zone: Zone): IO[Zone]
+  def addZone(zone: Zone): IO[ErrorOr[Zone]]
   def getZone(id: String): IO[Option[Zone]]
   def deleteZone(id: String): IO[ErrorOr[Unit]]
 //  def updatedZone(id: String, zone: Zone): IO[ErrorOr[Zone]]
@@ -21,8 +21,16 @@ trait ZoneRepo {
 
 object ZoneRepo {
   class ZoneRepoImp(xa: Aux[IO, Unit]) extends ZoneRepo {
-    override def addZone(zone: Zone): IO[Zone] = {
-      sql"insert into zones (id, name) values (${zone.name})"
+    override def addZone(zone: Zone): IO[ErrorOr[Zone]] = {
+      (for {
+        allZones <- getZones
+        validZone = CommuteTransformer.validateCommutes(zone, allZones)
+        addedZone = validZone.traverse(z => insertZone(z))
+      } yield addedZone).flatten
+    }
+
+    def insertZone(zone: Zone): IO[Zone] = {
+      sql"insert into zones (id, name) values (${zone.id},${zone.name})"
         .update
         .run
         .transact(xa)
@@ -56,7 +64,7 @@ object ZoneRepo {
 
     def getCommutes(zoneId: String): IO[Vector[Commute]] = {
       val uuid = UUID.fromString(zoneId)
-      sql"select end_zone_name, duration from commutes left join zones on zones.id = commutes.init_zone where zones.id = ${uuid}"
+       sql"select end_zone_name, duration from commutes left join zones on zones.id = commutes.init_zone where zones.id = ${uuid}"
         .query[Commute]
         .to[Vector]
         .transact(xa)

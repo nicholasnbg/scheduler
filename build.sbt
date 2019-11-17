@@ -1,7 +1,7 @@
 
 val Http4sVersion = "0.20.8"
 val CirceVersion = "0.11.1"
-val Specs2Version = "4.1.0"
+val specs2Version = "4.1.0"
 val LogbackVersion = "1.2.3"
 
 enablePlugins(JavaAppPackaging, AshScriptPlugin)
@@ -27,8 +27,10 @@ lazy val root = (project in file("."))
       "org.flywaydb"    % "flyway-core"          % "5.2.4",
       "joda-time"       % "joda-time"            % "2.10.5",
       "io.circe"        %% "circe-generic"       % CirceVersion,
-      "org.specs2"      %% "specs2-core"         % Specs2Version % "test",
-      "org.tpolecat"    %% "doobie-specs2"       % "0.8.4"       % "test",
+      "org.specs2"      %% "specs2-core"         % specs2Version      % "test",
+      "org.specs2"      %% "specs2-matcher-extra" % specs2Version     % "test",
+      "org.specs2"      %% "specs2-scalacheck"   % specs2Version      % "test",
+      "org.tpolecat"    %% "doobie-specs2"       % "0.8.4"            % "test",
       "ch.qos.logback"  %  "logback-classic"     % LogbackVersion,
       "net.postgis"     % "postgis-jdbc"         % "2.3.0"
     ),
