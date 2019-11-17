@@ -15,7 +15,7 @@ object CommuteTransformer {
   }
 
   private def hasCommute(commutes: Vector[Commute], zone: Zone): ValidatedNel[String, Zone] = {
-    if (commutes.map(commute => commute.endZoneName).contains(zone.name)) {
+    if (commutes.map(commute => commute.endZoneId).contains(zone.id)) {
       zone.validNel
     } else
       s"No commute found for ${zone.name}. ".invalidNel

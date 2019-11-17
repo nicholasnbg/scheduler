@@ -44,19 +44,15 @@ begin
     for commute_data in
     (select
      a.id as start_id,
-     a.name as start_name,
-     b.id as end_id,
-     b.name as end_name
+     b.id as end_id
      from zones a
      inner join zones b
      on b.id != a.id ) loop
 
-        insert into commutes (init_zone, init_zone_name, end_zone, end_zone_name, duration)
+        insert into commutes (init_zone, end_zone, duration)
         values
           (commute_data.start_id,
-          commute_data.start_name,
           commute_data.end_id,
-          commute_data.end_name,
           30);
     end loop;
 END$$;

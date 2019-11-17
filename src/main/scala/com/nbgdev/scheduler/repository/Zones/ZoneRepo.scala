@@ -64,10 +64,14 @@ object ZoneRepo {
 
     def getCommutes(zoneId: String): IO[Vector[Commute]] = {
       val uuid = UUID.fromString(zoneId)
-       sql"select end_zone_name, duration from commutes left join zones on zones.id = commutes.init_zone where zones.id = ${uuid}"
+       sql"select end_zone, duration from commutes left join zones on zones.id = commutes.init_zone where zones.id = ${uuid}"
         .query[Commute]
         .to[Vector]
         .transact(xa)
+    }
+
+    def addCommutes(zone: Zone, commutes: Vector[Commute]) = {
+
     }
 
     def getZoneName(zoneId: String): IO[Option[String]] = {

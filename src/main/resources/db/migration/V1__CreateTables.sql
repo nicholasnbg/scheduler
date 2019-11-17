@@ -5,9 +5,7 @@ CREATE TABLE IF NOT EXISTS zones (
 
 CREATE TABLE IF NOT EXISTS commutes (
   init_zone UUID NOT NULL REFERENCES zones(id),
-  init_zone_name VARCHAR NOT NULL,
   end_zone UUID NOT NULL REFERENCES zones(id),
-  end_zone_name VARCHAR NOT NULL,
   duration INTEGER NOT NULL,
   PRIMARY KEY (init_zone, end_zone)
 );
