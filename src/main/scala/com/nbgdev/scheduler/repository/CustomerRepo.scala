@@ -3,7 +3,6 @@ package com.nbgdev.scheduler.repository
 import java.util.UUID
 
 import cats.effect.IO
-import com.nbgdev.scheduler.Util.ErrorOr.ErrorOr
 import com.nbgdev.scheduler.model.Customer
 import doobie.util.transactor.Transactor.Aux
 import doobie.implicits._
@@ -14,7 +13,7 @@ import doobie.postgres.implicits._
 sealed trait CustomerRepo{
   def addCustomer(customer: Customer): IO[Customer]
   def getCustomer(id: String): IO[Option[Customer]]
-  def deleteCustomer(id: String): IO[ErrorOr[Unit]]
+  def deleteCustomer(id: String): IO[Either[String, Unit]]
 }
 
 object CustomerRepo {
@@ -34,7 +33,7 @@ object CustomerRepo {
         .transact(xa)
     }
 
-    override def deleteCustomer(id: String): IO[ErrorOr[Unit]] = {
+    override def deleteCustomer(id: String): IO[Either[String, Unit]] = {
       val uuid = UUID.fromString(id)
       sql"delete from customers where id = ${uuid}"
         .update

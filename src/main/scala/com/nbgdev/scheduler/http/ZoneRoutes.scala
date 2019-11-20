@@ -42,9 +42,12 @@ object ZoneRoutes {
 //        ???
 //      }
 //
-//      case req @ DELETE -> Root / "zones" / zoneId => {
-//        ???
-//      }
+      case req @ DELETE -> Root / "zones" / zoneId => {
+        zoneRepo.deleteZone(zoneId).flatMap {
+          case Left(e) => BadRequest(e)
+          case Right(value) => Ok("zone and commutes deleted")
+        }
+      }
     }
   }
 }

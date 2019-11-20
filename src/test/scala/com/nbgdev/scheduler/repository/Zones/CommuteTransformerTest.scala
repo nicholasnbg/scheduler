@@ -16,14 +16,14 @@ class CommuteTransformerTest extends Specification {
         val commute2 = Commute(existingZone2.id, 30)
         val newZone = Zone(UUID.randomUUID(), "Some Zone", Vector(commute1, commute2))
 
-        val result = CommuteTransformer.validateCommutes(newZone, Vector(existingZone1, existingZone2))
+        val result = CommuteTransformer.validCommutes(newZone, Vector(existingZone1, existingZone2))
         result must beRight(newZone)
       }
 
       "with invalid commutes" in {
         val newZone = Zone(UUID.randomUUID(), "Some Zone", Vector.empty)
 
-        val result = CommuteTransformer.validateCommutes(newZone, Vector(existingZone1, existingZone2))
+        val result = CommuteTransformer.validCommutes(newZone, Vector(existingZone1, existingZone2))
         result must beLeft
       }
     }

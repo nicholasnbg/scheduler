@@ -1,7 +1,6 @@
 package com.nbgdev.scheduler.repository
 
 import cats.effect.IO
-import com.nbgdev.scheduler.Util.ErrorOr.ErrorOr
 import com.nbgdev.scheduler.model.Vehicle
 import doobie.util.transactor.Transactor.Aux
 import doobie.implicits._
@@ -10,7 +9,7 @@ import doobie.implicits._
 sealed trait VehicleRepo{
 def addVehicle(Vehicle: Vehicle): IO[Vehicle]
 def getVehicle(rego: String): IO[Option[Vehicle]]
-def deleteVehicle(rego: String): IO[ErrorOr[Unit]]
+def deleteVehicle(rego: String): IO[Either[String, Unit]]
 def getVehicles: IO[Vector[Vehicle]]
 }
 
@@ -30,7 +29,7 @@ object VehicleRepo {
         .transact(xa)
     }
 
-    override def deleteVehicle(rego: String): IO[ErrorOr[Unit]] = {
+    override def deleteVehicle(rego: String): IO[Either[String, Unit]] = {
       sql"delete from vehicles where rego = ${rego}"
         .update
         .run
